@@ -1,5 +1,7 @@
 'use strict';
 
+document.addEventListener("DOMContentLoaded", readUrlQueryParamsAndRunQuery);
+
 var reposTable = document.getElementById('repos');
 
 var tbody = document.createElement('tbody');
@@ -8,6 +10,11 @@ reposTable.appendChild(tbody);
 var tablesort;
 
 var numOrgs = 0;
+
+var url = Qurl.create();
+var ORGS_QUERY_PARAM_KEY = {
+    orgs: "orgs"
+};
 
 var searchInput = document.getElementById('search');
 var forkCheckbox = document.getElementById('include-forks');
@@ -32,6 +39,7 @@ var orgInput = document.getElementById('org'),
 orgForm.onsubmit = loadFromInput;
 
 function loadFromInput() {
+    url.query(ORGS_QUERY_PARAM_KEY.orgs, orgInput.value);
     numOrgs = orgInput.value.split(',').length;
     orgInput.value.split(',').forEach(function(org) {
         loadOrganization(org.trim());
@@ -136,3 +144,11 @@ function debounce(fn, wait) {
         timeout = setTimeout(later, wait);
     };
 }
+
+function readUrlQueryParamsAndRunQuery() {
+    var orgs = url.query(ORGS_QUERY_PARAM_KEY.orgs);
+    if (typeof(orgs) != "undefined" && orgs.length > 0) {
+        orgInput.value = orgs;
+        loadFromInput();
+    }
+ }
