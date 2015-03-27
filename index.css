@@ -2,6 +2,9 @@ body {
     margin: 0;
     padding: 0;
 }
+nav.navbar {
+  margin-bottom: 0;
+}
 table {
     border-collapse: collapse;
     border-spacing: 0;
@@ -29,6 +32,9 @@ input[type=text] {
 }
 input[type=text]:focus {
     border-color: #999;
+}
+input#org {
+  width: 450px;
 }
 .mr {
     margin-right: 20px;
@@ -78,12 +84,12 @@ table th.sort-up:after {
     border-width: 4px 4px 0;
 }
 
-#repos, .filters {
+.filters {
     display: none;
 }
 .loaded #repos {
     display: table;
 }
 .loaded .filters {
-    display: block;
+    display: inline;
 }
